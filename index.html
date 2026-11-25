@@ -1,0 +1,1587 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>询价自动化工作台 · 交互演示</title>
+  <style>
+    :root {
+      --ink: #18212b;
+      --muted: #64707d;
+      --line: #d9dde1;
+      --paper: #ffffff;
+      --wash: #f3f1eb;
+      --navy: #152536;
+      --teal: #087c73;
+      --teal-soft: #e7f5f2;
+      --amber: #a95f08;
+      --amber-soft: #fbf1df;
+      --red: #b33b3b;
+      --red-soft: #fbeceb;
+      --green: #2e6b4f;
+      --green-soft: #eaf4ee;
+      --blue-soft: #eaf0f7;
+      --shadow: 0 18px 50px rgba(24, 33, 43, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 85% 10%, rgba(8, 124, 115, 0.08), transparent 28rem),
+        linear-gradient(rgba(24, 33, 43, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24, 33, 43, 0.025) 1px, transparent 1px),
+        var(--wash);
+      background-size: auto, 28px 28px, 28px 28px, auto;
+      font-family: "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .shell {
+      width: min(1440px, calc(100% - 40px));
+      margin: 24px auto 56px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .brandline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brandmark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      color: white;
+      background: var(--navy);
+      border-radius: 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 19px;
+    }
+
+    .demo-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 11px;
+      color: var(--amber);
+      background: var(--amber-soft);
+      border: 1px solid #efd8af;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .demo-flag::before {
+      width: 7px;
+      height: 7px;
+      content: "";
+      background: var(--amber);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(169, 95, 8, 0.1);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 36px 38px 32px;
+      color: white;
+      background: var(--navy);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      position: absolute;
+      top: -130px;
+      right: -70px;
+      width: 430px;
+      height: 430px;
+      content: "";
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 52px rgba(255, 255, 255, 0.025),
+        0 0 0 108px rgba(255, 255, 255, 0.018);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
+      gap: 44px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #8ddbd2;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "Songti SC", serif;
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      line-height: 1.12;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: #bac8d4;
+      font-size: 16px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .metric {
+      padding: 17px 16px;
+      background: rgba(255, 255, 255, 0.075);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+    }
+
+    .metric-label {
+      color: #9eb0bf;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .metric-value {
+      margin-top: 7px;
+      color: white;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      line-height: 1;
+    }
+
+    .metric-note {
+      margin-top: 6px;
+      color: #8ddbd2;
+      font-size: 11px;
+    }
+
+    .samplebar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 17px 4px 14px;
+      margin-top: 8px;
+    }
+
+    .sample-label {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab {
+      min-width: max-content;
+      padding: 9px 14px;
+      color: #4d5965;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: 160ms ease;
+    }
+
+    .tab:hover {
+      color: var(--ink);
+      background: white;
+      transform: translateY(-1px);
+    }
+
+    .tab[aria-selected="true"] {
+      color: white;
+      background: var(--teal);
+      border-color: var(--teal);
+      box-shadow: 0 7px 18px rgba(8, 124, 115, 0.2);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .automation-flow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .flow-dot {
+      display: grid;
+      width: 21px;
+      height: 21px;
+      place-items: center;
+      color: var(--teal);
+      background: var(--teal-soft);
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .flow-arrow {
+      color: #aeb6be;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .quiet-button {
+      padding: 8px 12px;
+      color: #4d5965;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      transition: 150ms ease;
+    }
+
+    .quiet-button:hover {
+      color: var(--ink);
+      background: white;
+      border-color: #bcc3ca;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(330px, 0.78fr) minmax(0, 1.22fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid rgba(217, 221, 225, 0.95);
+      border-radius: 18px;
+      box-shadow: 0 10px 32px rgba(24, 33, 43, 0.055);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 20px;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .panel-kicker {
+      margin-bottom: 2px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 9px;
+      color: var(--green);
+      background: var(--green-soft);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .status-pill::before {
+      width: 6px;
+      height: 6px;
+      content: "";
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+    .inquiry-body {
+      padding: 20px;
+    }
+
+    .source-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .customer-name {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .customer-meta {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .channel {
+      padding: 5px 9px;
+      color: #435770;
+      background: var(--blue-soft);
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .mail {
+      overflow: hidden;
+      background: #f8f9fa;
+      border: 1px solid #e1e5e9;
+      border-radius: 13px;
+    }
+
+    .mail-head {
+      padding: 13px 15px;
+      background: #f2f4f6;
+      border-bottom: 1px solid #e1e5e9;
+    }
+
+    .mail-subject {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .mail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .mail-text {
+      min-height: 245px;
+      padding: 17px 16px;
+      margin: 0;
+      color: #34404c;
+      font-family: "Consolas", "Microsoft YaHei UI", monospace;
+      font-size: 12.5px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .attachment-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      padding: 0 15px 15px;
+    }
+
+    .attachment {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 9px;
+      color: #5b6570;
+      background: white;
+      border: 1px solid #dfe3e7;
+      border-radius: 7px;
+      font-size: 11px;
+    }
+
+    .attachment::before {
+      width: 7px;
+      height: 9px;
+      content: "";
+      border: 1.5px solid #7f8a94;
+      border-radius: 2px;
+    }
+
+    .next-action {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      padding: 14px;
+      margin-top: 16px;
+      color: #26485c;
+      background: #eef5f8;
+      border: 1px solid #d6e5ec;
+      border-radius: 12px;
+    }
+
+    .next-icon {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      color: #1c617a;
+      background: white;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .next-action strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 12px;
+    }
+
+    .next-action span {
+      color: #567283;
+      font-size: 12px;
+    }
+
+    .result-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1.06fr 0.94fr;
+      gap: 18px;
+    }
+
+    .section-body {
+      padding: 18px 20px 20px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .field {
+      min-height: 66px;
+      padding: 11px 12px;
+      background: #f8f9fa;
+      border: 1px solid #e8ebee;
+      border-radius: 10px;
+    }
+
+    .field[data-state="warn"] {
+      background: var(--amber-soft);
+      border-color: #efd8af;
+    }
+
+    .field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .field-state {
+      color: var(--green);
+      font-size: 9px;
+    }
+
+    .field[data-state="warn"] .field-state {
+      color: var(--amber);
+    }
+
+    .field-value {
+      margin-top: 5px;
+      overflow: hidden;
+      font-size: 12.5px;
+      font-weight: 800;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .quote-hero {
+      padding: 18px 20px;
+      color: white;
+      background: linear-gradient(145deg, #0a7169, #07584f);
+    }
+
+    .quote-label {
+      color: #b7e6e1;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+    }
+
+    .quote-total {
+      margin-top: 5px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 38px;
+      line-height: 1;
+    }
+
+    .quote-subline {
+      margin-top: 8px;
+      color: #c5e8e5;
+      font-size: 11px;
+    }
+
+    .quote-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+      padding: 12px 20px 18px;
+    }
+
+    .mini-stat {
+      padding: 10px 11px;
+      background: #f7f8f9;
+      border: 1px solid #e6e9ec;
+      border-radius: 9px;
+    }
+
+    .mini-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .mini-stat strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 13px;
+    }
+
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+    }
+
+    .items-table th {
+      padding: 0 0 8px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .items-table th:not(:first-child),
+    .items-table td:not(:first-child) {
+      text-align: right;
+    }
+
+    .items-table td {
+      padding: 9px 0;
+      border-top: 1px solid #edf0f2;
+      vertical-align: top;
+    }
+
+    .item-name {
+      display: block;
+      font-weight: 800;
+    }
+
+    .item-sku {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .quote-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 12px;
+      margin-top: 8px;
+      color: var(--muted);
+      border-top: 1px solid #dfe3e7;
+      font-size: 10.5px;
+    }
+
+    .risk-list,
+    .missing-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .risk-item,
+    .missing-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 9px;
+      padding: 10px 11px;
+      border-radius: 9px;
+      font-size: 11.5px;
+    }
+
+    .risk-item[data-level="high"] {
+      color: #7a2828;
+      background: var(--red-soft);
+      border: 1px solid #efcfcf;
+    }
+
+    .risk-item[data-level="medium"] {
+      color: #765118;
+      background: var(--amber-soft);
+      border: 1px solid #efd9b5;
+    }
+
+    .risk-item[data-level="low"] {
+      color: var(--green);
+      background: var(--green-soft);
+      border: 1px solid #d5e8dc;
+    }
+
+    .risk-tag {
+      padding: 2px 5px;
+      color: currentColor;
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 4px;
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      align-self: start;
+    }
+
+    .missing-item {
+      color: #5d5a50;
+      background: #f7f6f1;
+      border: 1px dashed #d8d4c9;
+    }
+
+    .missing-item::before {
+      content: "?";
+      color: var(--amber);
+      font-weight: 900;
+    }
+
+    .subhead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .subhead h3 {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .subhead span {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .email-box {
+      position: relative;
+      padding: 15px 15px 14px;
+      color: #37444f;
+      background: #f8f9fa;
+      border: 1px solid #e2e6e9;
+      border-radius: 11px;
+      font-family: "Consolas", "Microsoft YaHei UI", monospace;
+      font-size: 11.5px;
+      line-height: 1.75;
+      white-space: pre-wrap;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      padding: 5px 8px;
+      color: var(--muted);
+      background: white;
+      border: 1px solid #dfe3e7;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .copy-button:hover {
+      color: var(--ink);
+      border-color: #bfc6cd;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 4px 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer strong {
+      color: #4f5a65;
+    }
+
+    .refreshing .panel {
+      animation: pulse 480ms ease;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      35% { opacity: 0.58; transform: translateY(2px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics {
+        max-width: 620px;
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100% - 24px, 1440px);
+        margin-top: 12px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .demo-flag {
+        white-space: normal;
+      }
+
+      .hero {
+        padding: 28px 22px 22px;
+        border-radius: 17px;
+      }
+
+      .hero-grid {
+        gap: 25px;
+      }
+
+      .metrics,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .samplebar,
+      .toolbar,
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .automation-flow {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+
+      .automation-flow::-webkit-scrollbar {
+        display: none;
+      }
+
+      .flow-arrow {
+        display: none !important;
+      }
+
+      .toolbar-actions {
+        width: 100%;
+      }
+
+      .quiet-button {
+        width: 100%;
+      }
+
+      .panel-head,
+      .section-body,
+      .inquiry-body {
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quote-footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 460px) {
+      h1 {
+        font-size: 30px;
+      }
+
+      .hero-copy {
+        font-size: 14px;
+      }
+
+      .demo-flag {
+        white-space: normal;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .shell {
+        width: 100%;
+        margin: 0;
+      }
+
+      .topbar,
+      .samplebar,
+      .toolbar,
+      .footer {
+        display: none;
+      }
+
+      .hero {
+        box-shadow: none;
+      }
+
+      .panel {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar">
+      <div class="brandline">
+        <span class="brandmark">Q</span>
+        <span>QUOTE OPS / 询价自动化工作台</span>
+      </div>
+      <span class="demo-flag">示例数据，仅用于流程演示</span>
+    </div>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">7-day workflow pilot</p>
+          <h1 id="page-title">把客户询价，变成可复核的报价与跟进任务。</h1>
+          <p class="hero-copy">
+            从邮件、PDF 或表格中提取规格，匹配产品目录，计算价格与毛利，标记缺失信息，并生成可直接发送的跟进邮件。
+          </p>
+        </div>
+        <div class="metrics" aria-label="演示结果概览">
+          <div class="metric">
+            <div class="metric-label">识别字段</div>
+            <div class="metric-value" id="metric-fields">8/10</div>
+            <div class="metric-note">关键字段完整度</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">复核风险</div>
+            <div class="metric-value" id="metric-risks">2</div>
+            <div class="metric-note" id="metric-risk-note">需要人工确认</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">建议动作</div>
+            <div class="metric-value" id="metric-action">30m</div>
+            <div class="metric-note">内回复客户</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="samplebar" aria-label="询价样例">
+      <span class="sample-label">选择样例</span>
+      <div class="tabs" role="tablist" aria-label="三组虚构询价">
+        <button class="tab" type="button" role="tab" aria-selected="true" data-sample="0">01 · 五金出口询价</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-sample="1">02 · 精密加工急单</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-sample="2">03 · 电气批量采购</button>
+      </div>
+    </nav>
+
+    <div class="toolbar">
+      <div class="automation-flow" aria-label="处理流程">
+        <span class="flow-step"><span class="flow-dot">1</span>读取询价</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step"><span class="flow-dot">2</span>识别规格</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step"><span class="flow-dot">3</span>匹配目录</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step"><span class="flow-dot">4</span>计算报价</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step"><span class="flow-dot">5</span>生成跟进</span>
+      </div>
+      <div class="toolbar-actions">
+        <button class="quiet-button" type="button" id="print-button">打印 / 导出 PDF</button>
+      </div>
+    </div>
+
+    <section class="workspace" id="workspace" aria-live="polite">
+      <article class="panel">
+        <header class="panel-head">
+          <div>
+            <div class="panel-kicker">Incoming inquiry</div>
+            <h2 class="panel-title">原始询价</h2>
+          </div>
+          <span class="status-pill">已读取</span>
+        </header>
+        <div class="inquiry-body">
+          <div class="source-row">
+            <div>
+              <h3 class="customer-name" id="customer-name">NordWerk GmbH</h3>
+              <div class="customer-meta" id="customer-meta">德国 · 工业五金分销商</div>
+            </div>
+            <span class="channel" id="inquiry-channel">Email</span>
+          </div>
+
+          <div class="mail">
+            <div class="mail-head">
+              <div class="mail-subject" id="mail-subject">RFQ: stainless hinges HC-201</div>
+              <div class="mail-meta">
+                <span id="mail-received">今天 09:14 收到</span>
+                <span id="mail-reply">建议 09:44 前回复</span>
+              </div>
+            </div>
+            <pre class="mail-text" id="mail-text"></pre>
+            <div class="attachment-row" id="attachment-row">
+              <span class="attachment">询价邮件正文</span>
+            </div>
+          </div>
+
+          <div class="next-action">
+            <span class="next-icon">→</span>
+            <div>
+              <strong id="next-title">先回复临时报价，再确认缺失参数</strong>
+              <span id="next-copy">用现有数据生成可复核报价，同时询问 Incoterm 与付款条件。</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="result-stack">
+        <div class="result-grid">
+          <article class="panel">
+            <header class="panel-head">
+              <div>
+                <div class="panel-kicker">Extracted fields</div>
+                <h2 class="panel-title">结构化结果</h2>
+              </div>
+              <span class="status-pill">已匹配目录</span>
+            </header>
+            <div class="section-body">
+              <div class="field-grid" id="field-grid"></div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="quote-hero">
+              <div class="quote-label">PROVISIONAL QUOTE</div>
+              <div class="quote-total" id="quote-total">$1,480.00</div>
+              <div class="quote-subline" id="quote-subline">500 pcs · 5% volume discount · 运费另报</div>
+            </div>
+            <div class="quote-stats">
+              <div class="mini-stat">
+                <span>预计毛利率</span>
+                <strong id="margin-value">21.7%</strong>
+              </div>
+              <div class="mini-stat">
+                <span>价格有效期</span>
+                <strong id="validity-value">7 天</strong>
+              </div>
+            </div>
+            <div class="section-body" style="padding-top: 0;">
+              <table class="items-table">
+                <thead>
+                  <tr>
+                    <th>产品</th>
+                    <th>数量</th>
+                    <th>单价</th>
+                    <th>小计</th>
+                  </tr>
+                </thead>
+                <tbody id="items-body"></tbody>
+              </table>
+              <div class="quote-footer">
+                <span id="quote-note">含标准出口包装与制单费</span>
+                <span id="quote-assumption">未含目的港费用</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="result-grid">
+          <article class="panel">
+            <header class="panel-head">
+              <div>
+                <div class="panel-kicker">Decision support</div>
+                <h2 class="panel-title">风险与缺失信息</h2>
+              </div>
+            </header>
+            <div class="section-body">
+              <div class="subhead">
+                <h3>需要人工复核</h3>
+                <span>AI 只标记，不替业务拍板</span>
+              </div>
+              <ul class="risk-list" id="risk-list"></ul>
+              <div class="subhead" style="margin-top: 16px;">
+                <h3>报价前还需确认</h3>
+                <span id="missing-count">2 项</span>
+              </div>
+              <ul class="missing-list" id="missing-list"></ul>
+            </div>
+          </article>
+
+          <article class="panel">
+            <header class="panel-head">
+              <div>
+                <div class="panel-kicker">Follow-up draft</div>
+                <h2 class="panel-title">客户回复草稿</h2>
+              </div>
+              <span class="status-pill">待人工确认</span>
+            </header>
+            <div class="section-body">
+              <div class="email-box" id="email-box">
+                <button class="copy-button" type="button" id="copy-button">复制</button>
+                <span id="email-text"></span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span><strong>演示说明：</strong>页面中的公司、联系人、价格、成本与交期均为虚构数据。</span>
+      <span>不构成报价、交期、合规意见或成交承诺。</span>
+    </footer>
+  </main>
+
+  <script>
+    const SAMPLES = [
+      {
+        customer: "NordWerk GmbH",
+        meta: "德国 · 工业五金分销商",
+        channel: "Email",
+        subject: "RFQ: stainless hinges HC-201",
+        received: "今天 09:14 收到",
+        reply: "建议 09:44 前回复",
+        message: `Dear Sales Team,
+
+We are reviewing a project for a modular enclosure line and would like your quotation for:
+
+- 500 pcs stainless hinge HC-201, brushed finish
+- Delivery to Hamburg, required before 20 December
+- Target price: USD 2.45 / pc
+
+Please advise your best price, packing details and lead time.
+
+Best regards,
+Procurement Team`,
+        attachments: ["询价邮件正文", "HC-201 图纸.pdf"],
+        nextTitle: "先回复临时报价，再确认缺失参数",
+        nextCopy: "用现有数据生成可复核报价，同时询问 Incoterm 与付款条件。",
+        replyWindow: "30m",
+        currency: "USD",
+        fxCnyPerUnit: 7.1,
+        discountPct: 5,
+        packaging: 80,
+        handling: 45,
+        validity: "7 天",
+        quoteNote: "含标准出口包装与制单费",
+        assumption: "未含目的港费用",
+        fields: [
+          { label: "客户", value: "NordWerk GmbH", state: "ok" },
+          { label: "目的地", value: "德国 · Hamburg", state: "ok" },
+          { label: "产品", value: "HC-201 不锈钢铰链", state: "ok" },
+          { label: "数量", value: "500 pcs", state: "ok" },
+          { label: "表面处理", value: "拉丝", state: "ok" },
+          { label: "目标单价", value: "USD 2.45", state: "ok" },
+          { label: "交期", value: "12 月 20 日前", state: "ok" },
+          { label: "贸易条款", value: "未说明", state: "warn" },
+          { label: "付款条件", value: "未说明", state: "warn" },
+          { label: "包装要求", value: "未说明", state: "warn" }
+        ],
+        items: [
+          { name: "HC-201 不锈钢铰链", sku: "HC-201 / 拉丝", qty: 500, unit: 2.95, costCny: 12.2 }
+        ],
+        risks: [
+          { level: "medium", tag: "价格", text: "客户目标价低于建议报价 12.5%，仍在毛利底线之上，可附条件回复。" },
+          { level: "medium", tag: "条款", text: "贸易条款与付款条件未明确，不能直接承诺到岸成本。" },
+          { level: "low", tag: "数量", text: "已超过 300 pcs 起订量，可应用 5% 数量折扣。" }
+        ],
+        missing: ["Incoterm（EXW / FOB / CIF）", "付款条件与账期"],
+        email: `Subject: Re: RFQ: stainless hinges HC-201
+
+Dear Procurement Team,
+
+Thank you for your inquiry. Based on 500 pcs HC-201 in brushed finish, our provisional quotation is USD 2.95 / pc with a 5% volume discount, equivalent to USD 2.80 / pc. Standard export packing and document handling are included. Freight is quoted separately.
+
+Lead time: 18–22 days after drawing confirmation and receipt of deposit.
+Quote validity: 7 days.
+
+To confirm the final landed cost and delivery schedule, please advise:
+1. Preferred Incoterm (EXW, FOB or CIF Hamburg)
+2. Payment terms
+3. Any specific carton or pallet requirements
+
+Best regards,
+[Your name]`
+      },
+      {
+        customer: "苏州恒拓自动化（示例）",
+        meta: "江苏 · 非标自动化集成商",
+        channel: "微信 / PDF",
+        subject: "6061 铝支架急单报价",
+        received: "今天 10:06 收到",
+        reply: "建议 10:36 前回复",
+        message: `你好，附件是 6061 铝支架图纸，请按图报价。
+
+数量：80 件
+公差：关键孔位 ±0.05 mm
+表面：先按本色，客户可能后面加阳极氧化
+目标价：138 元/件
+交期：7 天内到苏州工厂
+
+如果今天能确认，我们明天发 PO。`,
+        attachments: ["铝支架-V2.pdf", "采购需求.xlsx"],
+        nextTitle: "先确认图纸版本和表面处理，再锁定加急价",
+        nextCopy: "7 天交期短于标准周期，报价应单独体现加急、材料锁定和变更边界。",
+        replyWindow: "25m",
+        currency: "CNY",
+        fxCnyPerUnit: 1,
+        discountPct: 0,
+        packaging: 60,
+        handling: 40,
+        validity: "3 天",
+        quoteNote: "含基础包装与首件检验",
+        assumption: "不含阳极氧化与加急运费",
+        fields: [
+          { label: "客户", value: "苏州恒拓自动化", state: "ok" },
+          { label: "产品", value: "6061 铝支架", state: "ok" },
+          { label: "数量", value: "80 件", state: "ok" },
+          { label: "关键公差", value: "±0.05 mm", state: "ok" },
+          { label: "表面处理", value: "待客户确认", state: "warn" },
+          { label: "目标单价", value: "¥138 / 件", state: "ok" },
+          { label: "交期", value: "7 天内", state: "warn" },
+          { label: "图纸版本", value: "V2 / 待确认", state: "warn" },
+          { label: "材料", value: "6061 铝", state: "ok" },
+          { label: "交付地", value: "苏州工厂", state: "ok" }
+        ],
+        items: [
+          { name: "6061 铝支架", sku: "ASM-042 / 按图加工", qty: 80, unit: 146, costCny: 96 }
+        ],
+        risks: [
+          { level: "high", tag: "图纸", text: "V2 图纸尚未书面确认，按错误版本加工会产生不可逆损失。" },
+          { level: "medium", tag: "交期", text: "7 天短于标准 10–12 天，必须增加加急排产或调整交付日。" },
+          { level: "medium", tag: "工艺", text: "阳极氧化未确认，当前报价不能包含该工序。" }
+        ],
+        missing: ["图纸版本书面确认", "是否包含阳极氧化"],
+        email: `主题：回复：6061 铝支架急单报价
+
+您好，
+
+按 V2 图纸、80 件、关键孔位 ±0.05 mm、材料 6061 核算，临时报价为 146 元/件，含基础包装和首件检验；阳极氧化、加急运费及图纸变更费用另计。
+
+标准交期为确认图纸与预付款后 10–12 天。若要求 7 天内到厂，我们需要启用加急排产，请在回复中确认是否接受加急费用。
+
+为锁定报价，请确认：
+1. 本邮件所附 V2 是否为最终加工版本
+2. 是否包含阳极氧化及颜色要求
+3. 是否接受加急排产条款
+
+本报价有效 3 天，材料价格以确认订单当日复核为准。
+
+此致
+[Your name]`
+      },
+      {
+        customer: "Pacific Controls (fictional)",
+        meta: "越南 · 电气控制柜分销商",
+        channel: "Web form",
+        subject: "Bulk RFQ — relay modules RM-24",
+        received: "今天 11:22 收到",
+        reply: "建议 11:52 前回复",
+        message: `Hello,
+
+We need 1,200 units of relay module RM-24 for a panel builder customer.
+
+Destination: Ho Chi Minh City
+Required: 6 weeks
+Target: USD 6.80 / unit
+Payment: 30% deposit preferred
+
+Please include HS code, carton dimensions and warranty.
+
+Thanks,
+Procurement`,
+        attachments: ["Web form submission", "RM-24 datasheet.pdf"],
+        nextTitle: "核验目标价、包装尺寸与 HS 编码后再发正式报价",
+        nextCopy: "数量与付款条件清晰，可以快速给出接近目标价的阶梯报价。",
+        replyWindow: "20m",
+        currency: "USD",
+        fxCnyPerUnit: 7.1,
+        discountPct: 8,
+        packaging: 120,
+        handling: 50,
+        validity: "10 天",
+        quoteNote: "含出口纸箱、标签与单证费",
+        assumption: "海运费和保险另报",
+        fields: [
+          { label: "客户", value: "Pacific Controls", state: "ok" },
+          { label: "目的地", value: "越南 · 胡志明市", state: "ok" },
+          { label: "产品", value: "RM-24 继电器模块", state: "ok" },
+          { label: "数量", value: "1,200 pcs", state: "ok" },
+          { label: "目标单价", value: "USD 6.80", state: "warn" },
+          { label: "交期", value: "6 周", state: "ok" },
+          { label: "付款条件", value: "30% 定金", state: "ok" },
+          { label: "HS 编码", value: "需按最终配置核验", state: "warn" },
+          { label: "包装", value: "需提供尺寸", state: "warn" },
+          { label: "质保", value: "标准 12 个月", state: "ok" }
+        ],
+        items: [
+          { name: "RM-24 继电器模块", sku: "RM-24 / 24VDC", qty: 1200, unit: 7.9, costCny: 35.5 }
+        ],
+        risks: [
+          { level: "medium", tag: "价格", text: "目标价低于建议报价约 4%，可通过 8% 批量折扣接近，但需锁定付款条件。" },
+          { level: "medium", tag: "合规", text: "HS 编码必须按最终产品配置和目的地规则由人工复核。" },
+          { level: "low", tag: "付款", text: "客户主动提出 30% 定金，风险相对可控，仍应写入正式合同。" }
+        ],
+        missing: ["最终 HS 编码", "外箱尺寸与托盘要求"],
+        email: `Subject: Re: Bulk RFQ — relay modules RM-24
+
+Hello,
+
+Thank you for the RFQ. For 1,200 pcs RM-24 / 24VDC, our provisional unit price is USD 7.27 after an 8% volume discount. Export cartons, labels and standard documentation are included. Ocean freight and insurance are quoted separately.
+
+Lead time: 5–6 weeks after receipt of the 30% deposit and approval of the datasheet revision.
+Warranty: 12 months under standard terms.
+Quote validity: 10 days.
+
+We will confirm the HS code and provide carton dimensions after checking the final configuration. Please also confirm the destination port and whether palletized packing is required.
+
+Best regards,
+[Your name]`
+      }
+    ];
+
+    const els = {
+      workspace: document.getElementById("workspace"),
+      tabs: Array.from(document.querySelectorAll(".tab")),
+      customerName: document.getElementById("customer-name"),
+      customerMeta: document.getElementById("customer-meta"),
+      channel: document.getElementById("inquiry-channel"),
+      subject: document.getElementById("mail-subject"),
+      received: document.getElementById("mail-received"),
+      reply: document.getElementById("mail-reply"),
+      mailText: document.getElementById("mail-text"),
+      attachments: document.getElementById("attachment-row"),
+      nextTitle: document.getElementById("next-title"),
+      nextCopy: document.getElementById("next-copy"),
+      metricFields: document.getElementById("metric-fields"),
+      metricRisks: document.getElementById("metric-risks"),
+      metricRiskNote: document.getElementById("metric-risk-note"),
+      metricAction: document.getElementById("metric-action"),
+      fieldGrid: document.getElementById("field-grid"),
+      quoteTotal: document.getElementById("quote-total"),
+      quoteSubline: document.getElementById("quote-subline"),
+      margin: document.getElementById("margin-value"),
+      validity: document.getElementById("validity-value"),
+      itemsBody: document.getElementById("items-body"),
+      quoteNote: document.getElementById("quote-note"),
+      quoteAssumption: document.getElementById("quote-assumption"),
+      risks: document.getElementById("risk-list"),
+      missingCount: document.getElementById("missing-count"),
+      missingList: document.getElementById("missing-list"),
+      emailText: document.getElementById("email-text"),
+      copyButton: document.getElementById("copy-button"),
+      printButton: document.getElementById("print-button")
+    };
+
+    let activeIndex = 0;
+
+    function money(value, currency) {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(value);
+    }
+
+    function computeQuote(sample) {
+      let subtotal = 0;
+      let costTotal = 0;
+      let units = 0;
+      const items = sample.items.map((item) => {
+        const unit = item.unit * (1 - sample.discountPct / 100);
+        const lineTotal = unit * item.qty;
+        const costPerUnit = item.costCny / sample.fxCnyPerUnit;
+        subtotal += lineTotal;
+        costTotal += costPerUnit * item.qty;
+        units += item.qty;
+        return { ...item, discountedUnit: unit, lineTotal };
+      });
+      const quoteBase = subtotal + sample.packaging + sample.handling;
+      const profit = quoteBase - costTotal;
+      const margin = quoteBase > 0 ? (profit / quoteBase) * 100 : 0;
+      return { items, subtotal, costTotal, quoteBase, margin, units };
+    }
+
+    function render(sampleIndex, animate = true) {
+      activeIndex = sampleIndex;
+      const sample = SAMPLES[sampleIndex];
+      const quote = computeQuote(sample);
+      const completeFields = sample.fields.filter((field) => field.state === "ok").length;
+      const highRisk = sample.risks.filter((risk) => risk.level === "high").length;
+
+      els.tabs.forEach((tab, index) => {
+        tab.setAttribute("aria-selected", String(index === sampleIndex));
+      });
+
+      els.customerName.textContent = sample.customer;
+      els.customerMeta.textContent = sample.meta;
+      els.channel.textContent = sample.channel;
+      els.subject.textContent = sample.subject;
+      els.received.textContent = sample.received;
+      els.reply.textContent = sample.reply;
+      els.mailText.textContent = sample.message;
+      els.nextTitle.textContent = sample.nextTitle;
+      els.nextCopy.textContent = sample.nextCopy;
+
+      els.attachments.innerHTML = "";
+      sample.attachments.forEach((attachment) => {
+        const span = document.createElement("span");
+        span.className = "attachment";
+        span.textContent = attachment;
+        els.attachments.appendChild(span);
+      });
+
+      els.metricFields.textContent = `${completeFields}/${sample.fields.length}`;
+      els.metricRisks.textContent = String(sample.risks.length);
+      els.metricRiskNote.textContent = highRisk ? `${highRisk} 项高优先级` : "需要人工确认";
+      els.metricAction.textContent = sample.replyWindow;
+
+      els.fieldGrid.innerHTML = "";
+      sample.fields.forEach((field) => {
+        const div = document.createElement("div");
+        div.className = "field";
+        div.dataset.state = field.state;
+        div.innerHTML = `
+          <div class="field-label">
+            <span>${escapeHtml(field.label)}</span>
+            <span class="field-state">${field.state === "ok" ? "已识别" : "待确认"}</span>
+          </div>
+          <div class="field-value" title="${escapeHtml(field.value)}">${escapeHtml(field.value)}</div>
+        `;
+        els.fieldGrid.appendChild(div);
+      });
+
+      els.quoteTotal.textContent = money(quote.quoteBase, sample.currency);
+      els.quoteSubline.textContent = `${quote.units.toLocaleString("en-US")} pcs · ${sample.discountPct}% volume discount · 运费另报`;
+      els.margin.textContent = `${quote.margin.toFixed(1)}%`;
+      els.validity.textContent = sample.validity;
+      els.quoteNote.textContent = sample.quoteNote;
+      els.quoteAssumption.textContent = sample.assumption;
+
+      els.itemsBody.innerHTML = "";
+      quote.items.forEach((item) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>
+            <span class="item-name">${escapeHtml(item.name)}</span>
+            <span class="item-sku">${escapeHtml(item.sku)}</span>
+          </td>
+          <td>${item.qty.toLocaleString("en-US")}</td>
+          <td>${money(item.discountedUnit, sample.currency)}</td>
+          <td>${money(item.lineTotal, sample.currency)}</td>
+        `;
+        els.itemsBody.appendChild(row);
+      });
+
+      els.risks.innerHTML = "";
+      sample.risks.forEach((risk) => {
+        const li = document.createElement("li");
+        li.className = "risk-item";
+        li.dataset.level = risk.level;
+        li.innerHTML = `
+          <span class="risk-tag">${escapeHtml(risk.tag)}</span>
+          <span>${escapeHtml(risk.text)}</span>
+        `;
+        els.risks.appendChild(li);
+      });
+
+      els.missingCount.textContent = `${sample.missing.length} 项`;
+      els.missingList.innerHTML = "";
+      sample.missing.forEach((item) => {
+        const li = document.createElement("li");
+        li.className = "missing-item";
+        li.innerHTML = `<span>${escapeHtml(item)}</span>`;
+        els.missingList.appendChild(li);
+      });
+
+      els.emailText.textContent = sample.email;
+
+      if (animate) {
+        els.workspace.classList.remove("refreshing");
+        void els.workspace.offsetWidth;
+        els.workspace.classList.add("refreshing");
+        window.setTimeout(() => els.workspace.classList.remove("refreshing"), 520);
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    async function copyEmail() {
+      const text = SAMPLES[activeIndex].email;
+      try {
+        await navigator.clipboard.writeText(text);
+        els.copyButton.textContent = "已复制";
+      } catch {
+        const range = document.createRange();
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.selectAllChildren(els.emailText);
+        try {
+          document.execCommand("copy");
+          els.copyButton.textContent = "已复制";
+        } catch {
+          els.copyButton.textContent = "请手动复制";
+        }
+      }
+      window.setTimeout(() => {
+        els.copyButton.textContent = "复制";
+      }, 1400);
+    }
+
+    els.tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        render(Number(tab.dataset.sample));
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.target.matches("input, textarea")) return;
+      if (event.key === "1" || event.key === "2" || event.key === "3") {
+        render(Number(event.key) - 1);
+      }
+      if (event.key.toLowerCase() === "p") {
+        window.print();
+      }
+    });
+
+    els.copyButton.addEventListener("click", copyEmail);
+    els.printButton.addEventListener("click", () => window.print());
+
+    const requestedSample = Number(new URLSearchParams(window.location.search).get("sample"));
+    const initialSample = Number.isInteger(requestedSample) && SAMPLES[requestedSample] ? requestedSample : 0;
+    render(initialSample, false);
+  </script>
+</body>
+</html>
