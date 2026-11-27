@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minimal Sci-Fi Close-Up Prompts</title>
+  <style>
+    @page {
+      size: Letter;
+      margin: 0.52in 0.62in 0.58in;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body {
+      margin: 0;
+      color: #171a1f;
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10.3pt;
+      line-height: 1.46;
+    }
+    .cover {
+      min-height: 9.35in;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      page-break-after: always;
+    }
+    .eyebrow {
+      padding-top: 0.2in;
+      font-size: 8pt;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #4f6474;
+    }
+    .cover-main { max-width: 6.55in; margin-top: 0.7in; }
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 35pt;
+      font-weight: 500;
+      line-height: 0.98;
+      letter-spacing: -0.032em;
+    }
+    .subtitle {
+      max-width: 5.6in;
+      margin: 0.22in 0 0;
+      font-size: 13.5pt;
+      line-height: 1.36;
+      color: #3c4650;
+    }
+    .cover-meta {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.48in;
+      font-size: 9pt;
+    }
+    .cover-meta td {
+      border-top: 1px solid #cbd4da;
+      padding: 0.11in 0.12in 0.11in 0;
+      vertical-align: top;
+    }
+    .cover-meta td:first-child {
+      width: 1.12in;
+      color: #64717b;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 7.4pt;
+    }
+    .cover-note {
+      max-width: 5.7in;
+      margin-top: 0.5in;
+      padding-top: 0.16in;
+      border-top: 2px solid #171a1f;
+      color: #46515b;
+    }
+    .cover-footer {
+      font-size: 8pt;
+      color: #68737d;
+      display: flex;
+      justify-content: space-between;
+    }
+    .section-page { page-break-after: always; }
+    .section-kicker {
+      font-size: 7.8pt;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #4f6474;
+    }
+    .section-title {
+      margin: 0.06in 0 0.16in;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22pt;
+      font-weight: 500;
+      line-height: 1.1;
+    }
+    .intro {
+      max-width: 6.55in;
+      font-size: 11pt;
+      color: #37414a;
+    }
+    .contents {
+      margin: 0.32in 0 0;
+      padding: 0;
+      columns: 2;
+      column-gap: 0.46in;
+      list-style: none;
+      font-size: 9.2pt;
+    }
+    .contents li {
+      break-inside: avoid;
+      margin: 0 0 0.095in;
+      line-height: 1.28;
+    }
+    .contents span {
+      display: inline-block;
+      width: 0.29in;
+      color: #80909b;
+      font-variant-numeric: tabular-nums;
+    }
+    .prompt-entry {
+      break-inside: avoid;
+      padding: 0.16in 0 0.17in;
+      border-top: 1px solid #cbd4da;
+    }
+    .prompt-heading {
+      display: grid;
+      grid-template-columns: 0.44in 1fr;
+      gap: 0.08in;
+      align-items: baseline;
+      margin-bottom: 0.08in;
+    }
+    .prompt-number {
+      color: #69808f;
+      font-size: 8.4pt;
+      letter-spacing: 0.08em;
+      font-variant-numeric: tabular-nums;
+    }
+    .prompt-heading h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 16pt;
+      line-height: 1.12;
+      font-weight: 600;
+    }
+    .prompt-row {
+      display: grid;
+      grid-template-columns: 0.9in 1fr;
+      gap: 0.1in;
+      margin-top: 0.055in;
+    }
+    .prompt-label {
+      padding-top: 0.017in;
+      color: #5a6a75;
+      font-size: 7.4pt;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .prompt-row p {
+      margin: 0;
+      color: #23282e;
+    }
+    .prompt-row.primary {
+      padding: 0.075in 0 0.08in;
+      margin-top: 0.075in;
+      border-top: 1px solid #e2e7ea;
+      border-bottom: 1px solid #e2e7ea;
+    }
+    .prompt-row.primary p {
+      font-size: 10.8pt;
+      line-height: 1.5;
+    }
+    .tags { color: #45545f !important; }
+    .rationale {
+      margin-top: 0.08in;
+      margin-left: 1in;
+    }
+    .rationale span {
+      color: #171a1f;
+      font-weight: 700;
+      font-size: 8.2pt;
+      letter-spacing: 0.035em;
+      text-transform: uppercase;
+    }
+    .rationale p {
+      margin: 0.03in 0 0;
+      color: #46515b;
+      font-size: 9.2pt;
+    }
+    .sample-note {
+      margin-top: 0.26in;
+      padding-top: 0.12in;
+      border-top: 2px solid #171a1f;
+      color: #46515b;
+      font-size: 9.3pt;
+    }
+    .page {
+      display: none;
+    }
+    @media print {
+      .prompt-entry {
+        min-height: 2.9in;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="cover">
+    <div>
+      <div class="eyebrow">Prompt collection / Close-up fashion studies</div>
+      <div class="cover-main">
+        <h1>Minimal Sci-Fi Close-Up Prompts</h1>
+        <p class="subtitle">Three-prompt sample for a 30-prompt minimalist science-fiction streetwear lookbook</p>
+      </div>
+      <table class="cover-meta">
+        <tr><td>Scope</td><td>Facial framing, hair styling, minimalist sci-fi materials, reflective and luminous details</td></tr>
+        <tr><td>Format</td><td>Three-line copy-ready prompt plus a rationale for each concept</td></tr>
+        <tr><td>Palette</td><td>Neutral and monochrome settings; controlled neon or reflected accents</td></tr>
+        <tr><td>Status</td><td>Sample</td></tr>
+      </table>
+      <p class="cover-note">Prepared as a capability sample. The awarded delivery contains 30 distinct prompts and can be adapted to the supplied mood boards.</p>
+    </div>
+    <div class="cover-footer">
+      <span>Minimal sci-fi streetwear lookbook</span>
+      <span>Sample</span>
+    </div>
+  </main>
+
+  <section class="section-page">
+    <div class="section-kicker">Working brief</div>
+    <h2 class="section-title">How the collection is structured</h2>
+    <p class="intro">
+      Every concept keeps the model's face and hair styling as the primary subject.
+      The futuristic signal comes from one restrained material behavior: reflective
+      fabric, neon piping, or a small glowing accent. Backgrounds stay smooth and
+      near-clinical so the viewer's attention returns to expression, grooming, and
+      garment construction.
+    </p>
+    <p class="intro">
+      The first line of each prompt controls the camera and lighting. The second
+      describes the face, hair, styling, and futuristic detail. The third supplies
+      image-engine tags and negative guidance.
+    </p>
+    <div class="section-kicker" style="margin-top:0.32in">Prompt index</div>
+    <ol class="contents"><li><span>01</span>Pearlescent Commuter</li><li><span>02</span>Graphite Rib Knit</li><li><span>03</span>Frosted Hood</li></ol>
+  </section>
+
+  
+        <section class="prompt-entry">
+          <div class="prompt-heading">
+            <span class="prompt-number">01</span>
+            <h2>Pearlescent Commuter</h2>
+          </div>
+          <div class="prompt-row">
+            <div class="prompt-label">Settings</div>
+            <p>85 mm lens, f/1.8, waist-up face crop, soft box key at 5200 K, subtle rim light, shallow depth of field, 4:5 portrait.</p>
+          </div>
+          <div class="prompt-row primary">
+            <div class="prompt-label">Prompt</div>
+            <p>Close-up of a calm East Asian female model with a dark blunt bob and a single pearl ear cuff, wearing a pearl-white high-collar commuter jacket with clean seams and a thin reflective silver shoulder strip; her eyes meet the camera against a pale mineral-grey seamless backdrop.</p>
+          </div>
+          <div class="prompt-row">
+            <div class="prompt-label">Style tags</div>
+            <p class="tags">minimalist sci-fi fashion, clean futurism, neutral monochrome, editorial beauty, soft reflections, no distressed texture, no tactical styling.</p>
+          </div>
+          <div class="rationale">
+            <span>Why it works</span>
+            <p>The symmetrical face framing makes the model the focal point, while the blunt bob and ear cuff establish styling. The narrow reflective shoulder strip adds a futuristic signal without drawing attention away from her expression or introducing a busy backdrop.</p>
+          </div>
+        </section>
+        
+        <section class="prompt-entry">
+          <div class="prompt-heading">
+            <span class="prompt-number">02</span>
+            <h2>Graphite Rib Knit</h2>
+          </div>
+          <div class="prompt-row">
+            <div class="prompt-label">Settings</div>
+            <p>100 mm macro portrait lens, f/2.0, tight face-and-shoulder composition, large overhead diffuser, cool fill from camera left, controlled shadow falloff, 1:1 square.</p>
+          </div>
+          <div class="prompt-row primary">
+            <div class="prompt-label">Prompt</div>
+            <p>Close-up of a poised Black male model with close-cropped hair and a shaved side part, wearing a graphite rib-knit funnel-neck top with precise vertical ridges and electric-blue neon piping tracing the collar; his chin is slightly lifted and his gaze is direct against a seamless smoke-grey background.</p>
+          </div>
+          <div class="prompt-row">
+            <div class="prompt-label">Style tags</div>
+            <p class="tags">minimal sci-fi streetwear, architectural knitwear, clinical studio, cool-blue accent, luxury editorial, controlled contrast, no cyberpunk clutter.</p>
+          </div>
+          <div class="rationale">
+            <span>Why it works</span>
+            <p>The rib-knit texture and funnel collar carry the futuristic styling, while the blue piping creates a controlled accent near the jaw. Direct eye contact and a simple smoke-grey background keep the viewer focused on the model&#x27;s face and grooming.</p>
+          </div>
+        </section>
+        
+        <section class="prompt-entry">
+          <div class="prompt-heading">
+            <span class="prompt-number">03</span>
+            <h2>Frosted Hood</h2>
+          </div>
+          <div class="prompt-row">
+            <div class="prompt-label">Settings</div>
+            <p>70 mm lens, f/2.2, head-and-chest portrait, side key at 4800 K, narrow strip light behind the shoulder, gentle atmospheric haze, 3:2 landscape.</p>
+          </div>
+          <div class="prompt-row primary">
+            <div class="prompt-label">Prompt</div>
+            <p>Close-up of a female model with a wet-look platinum pixie cut and a sculptural frosted-silver hood framing her cheekbones, wearing a matte white technical jacket with a thin glowing accent along the inner hood edge; her expression is restrained and her eyes remain the brightest point against a near-white studio background.</p>
+          </div>
+          <div class="prompt-row">
+            <div class="prompt-label">Style tags</div>
+            <p class="tags">quiet futurism, minimal sci-fi beauty, frosted synthetic fabric, monochrome palette, soft glowing accent, clean editorial portrait, no grime, no combat details.</p>
+          </div>
+          <div class="rationale">
+            <span>Why it works</span>
+            <p>The hood shapes the face without hiding the platinum hair, and the wet-look styling gives the portrait a precise finished look. The glowing inner edge is isolated to one contour, so it communicates next-century technology while preserving expression, depth of field, and minimalist negative space.</p>
+          </div>
+        </section>
+        
+  <p class='sample-note'>The full awarded delivery expands this approach to 30 distinct prompts, adapted to the supplied mood boards, with one rationale beside every prompt.</p>
+</body>
+</html>
